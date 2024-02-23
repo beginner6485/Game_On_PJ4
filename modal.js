@@ -22,7 +22,7 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalFirst = document.getElementById("first");
 const modalLast = document.getElementById("last");
-const modalEmail = document.getElementById("email");
+const modalEmail = document.querySelector("#email");
 const modalBirth = document.getElementById("birthdate");
 const checkboxicon = document.getElementById ("checkbox-icon");
 const Data = document.querySelectorAll(".formData");
@@ -38,7 +38,7 @@ const boutonRadio= document.querySelector("radio");
 
 
 // launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal)); // for each est problématique ?
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // de ce que je comprends cette ligne ouvre au click la fenêtre "je m'inscris"
 
@@ -53,7 +53,6 @@ function textCheck(inputControl) {
   console.log(inputControl)
 if(inputControl.value.length < 2) { 
   inputControl.style.border= "solid red"; 
-  inputControl.style.background= "red"; 
   message.style.display="block";
   message2.style.display="block";
   console.log("mauvais");
@@ -87,7 +86,8 @@ if (emailRegex.test(modalEmail.value)) {
   return true;
 }else{
   message3.style.display="block";
-  console.log("nope"); 
+  inputControl.style.border= "solid red"; 
+  console.log(message3); 
   return false;
  }
 } //on vérifie que la value de emailInput correspond bien à la regex
@@ -136,14 +136,9 @@ modalBirth.addEventListener("keyup", e => {
   dateDeNaissance(e);
  });
 
-
- 
 // Un bouton Radio doit être sélectionné.
 
 // radio // faire une boucle
-
-
-
 
 function radio (e) {
   let checkBox = document.querySelector("input[name='location']:checked"); // radio bouton cochée
