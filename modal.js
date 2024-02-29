@@ -19,6 +19,7 @@ function closeModale(){
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
+const modalBd = document.querySelector(".modal-body");
 const formData = document.querySelectorAll(".formData");
 const modalFirst = document.getElementById("first");
 const modalLast = document.getElementById("last");
@@ -33,61 +34,56 @@ const message2= document.querySelector(".message2");
 const message3= document.querySelector(".message3");
 const message4= document.querySelector(".message4");
 const message5= document.querySelector(".message5");
+const message6= document.querySelector(".message6");
+const message7= document.querySelector(".message7");
 const quantity= document.getElementById ("quantity");
 const boutonRadio= document.querySelector("radio"); 
-
+const conditionCase = document.querySelector("checkbox");
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
-// de ce que je comprends cette ligne ouvre au click la fenêtre "je m'inscris"
 
 // launch modal form (ferme la fenêtre)
 function launchModal() {
   modalbg.style.display = "block"; 
 }
 
-// interaction rouge/blanc champs/conditions + keyup = lire l'action (taper)
-
+// on vérifie que l'input est complet
 function textCheck(inputControl) {
-  console.log(inputControl)
+
 if(inputControl.value.length < 2) { 
   inputControl.style.border= "solid red"; 
   message.style.display="block";
   message2.style.display="block";
-  console.log("mauvais");
   return false;
 }else{
   inputControl.style.border= "white"; 
   inputControl.style.background= "white";
   message.style.display="none";
   message2.style.display="none";
-  console.log("supérieur à 2 ");
   return true;
  }
 }
 
-
 modalFirst.addEventListener("keyup",e => {
   textCheck(modalFirst);
-});
+}); 
 
 modalLast.addEventListener("keyup", e => {
   textCheck(modalLast);
 });
 
-
+// on vérifie que l'email est complet
 function emailTest (){
 let emailRegex = new RegExp("[a-z0-9]+@[a-z]+\.[a-z]{2,3}");
-  console.log(emailRegex.test(modalEmail.value));
 if (emailRegex.test(modalEmail.value)) {
-  console.log("ok");
   message3.style.display="none";
+  modalEmail.style.border= "none"; 
   return true;
 }else{
   message3.style.display="block";
-  inputControl.style.border= "solid red"; 
-  console.log(message3); 
+  modalEmail.style.border= "solid red"; 
   return false;
  }
 } //on vérifie que la value de emailInput correspond bien à la regex
@@ -98,59 +94,73 @@ modalEmail.addEventListener("keyup", emailTest);
 function conditionNumber () {
 
 if (quantity.value >= 0) {
-  quantity.style.border= "solid white"; 
+  quantity.style.border= "none"; 
   quantity.style.background="white";
-  console.log("ok numéro")
   return true;
 }else{
   quantity.style.border= "solid red"; 
   quantity.style.background="red";
-  console.log ("pas de numéro")
   return false;
  }
 }
-quantity.addEventListener("keyup", conditionNumber);
+quantity.addEventListener("keyup", conditionNumber); 
 
 
 let checkbox = document.querySelector(".checkBox:checked");
 
-//Date de naissance  // ne fonctionne pas
 
 function dateDeNaissance(e) {
  let date = new Date() ; // date actuelle
  let birthDate = new Date(modalBirth.value)
-console.log(modalBirth.value);
 
  if (date >= birthDate){
-  console.log("date ok");
   message4.style.display="none";
+  modalBirth.style.border= "none"; 
   return true;
  }else{
   message4.style.display="block";
-  console.log("date problem");
+  modalBirth.style.border= "solid red"; 
   return false;
   }
  }
 
-modalBirth.addEventListener("keyup", e => {
+modalBirth.addEventListener("input", e => {
   dateDeNaissance(e);
  });
 
-// Un bouton Radio doit être sélectionné.
-
-// radio // faire une boucle
+function quantityCheck(){
+  if(quantity.value && quantity.value > 0){
+    message5.style.display = "none"
+    quantity.style.border ="none"
+    return true
+  }else{
+    message5.style.display = "block"
+    quantity.style.border ="solid red"
+    return false
+  }
+}
 
 function radio (e) {
   let checkBox = document.querySelector("input[name='location']:checked"); // radio bouton cochée
-
-if (checkBox)
-{
-   console.log(checkBox.value);
+  if (checkBox){
+  message6.style.display= "none"
    return true;
-}else{
-  console.log("aucun check");
+   
+  }else{
+  message6.style.display= "block"
   return false;
 }
+}
+
+function conditionRespect(){
+  let conditionCase = document.querySelector("input[type='checkbox']:checked")
+  if(conditionCase){
+    message7.style.display = "none"
+    return true
+  }else{
+    message7.style.display = "block"
+    return false
+  }
 }
 
 modalSubmit.addEventListener ("click",e =>{
@@ -158,39 +168,63 @@ modalSubmit.addEventListener ("click",e =>{
   radio(e);
 });
 
+function appel(){
+  let bool = true
+  textCheck(modalFirst) == false ? bool = false : ""
+  textCheck(modalLast) == false ? bool = false : ""
+  emailTest() == false ? bool = false : ""
+  conditionNumber() == false ? bool = false : ""
+  dateDeNaissance() == false ? bool = false : ""
+  radio() == false ? bool = false : ""
+  quantityCheck() == false ? bool = false : ""
+  conditionRespect() == false ? bool = false : ""
+  return bool
+} // permet de vérifier que tous les champs du formulaire ont été remplis
 
 function btnSend () {
-  const modaleFin= document.querySelector(".modale-fin");
-if (textCheck(modalFirst)==true && textCheck(modalLast)==true && emailTest()==true && conditionNumber()==true && dateDeNaissance()==true && radio()==true){
-  console.log ("test ok");
-  modaleFin.style.display="block";
+  let modaleFin= document.querySelector(".modale-fin");
+if (appel()== true){
+  modaleFin.style.display="flex";
+  modalBd.style.display="none";
   return true;
 
 }else{
-  console.log("echec")
   return false;
  }
 }
+function logFormDataRealTime() {
+  const firstName = modalFirst.value;
+  const lastName = modalLast.value;
+  const email = modalEmail.value;
+  const birthdate = modalBirth.value;
+  const quantityValue = quantity.value;
+  const radioChecked = document.querySelector("input[name='location']:checked");
 
-modalSubmit.addEventListener ("click", btnSend);
+  console.clear(); // Effacer la console à chaque mise à jour
+  console.log("First Name:", firstName);
+  console.log("Last Name:", lastName);
+  console.log("Email:", email);
+  console.log("Birthdate:", birthdate);
+  console.log("Quantity:", quantityValue);
+  console.log("Radio Checked:", radioChecked ? radioChecked.value : "None");
+}
 
-//let btn = document.getElementById("btn");
-//btn.addEventListener("click", function(){
- // alert('Nombre d\'options choisies : ' + quantité(document.selectForm.typesMusique))
-//});
+// Ajouter des écouteurs d'événements pour chaque champ de formulaire
+modalFirst.addEventListener("input", logFormDataRealTime);
+modalLast.addEventListener("input", logFormDataRealTime);
+modalEmail.addEventListener("input", logFormDataRealTime);
+modalBirth.addEventListener("input", logFormDataRealTime);
+quantity.addEventListener("input", logFormDataRealTime);
+document.querySelectorAll("input[name='location']").forEach((radio) => {
+  radio.addEventListener("change", logFormDataRealTime);});
 
+modalSubmit.addEventListener ("click", btnSend); // permet de valider le formulaire
 
-  
-  //Le formulaire doit être valide quand l'utilisateur clique sur "Submit" (not yet)
- // (5) Un bouton radio est sélectionné. (OK)
-  // (6) La case des conditions générales est cochée, l'autre case est facultative / peut être laissée décochée. (OK)
+let finishModale = document.querySelector(".button-close") // vient clore la modale du message de confirmation.
 
-  // Conserver les données du formulaire (ne pas effacer le formulaire) lorsqu'il ne passe pas la validation.(OK) e.preventDefault()
+finishModale.addEventListener("click",closeModale)
 
-  // Step 3 
-  //Après une validation réussie, inclure un message de confirmation de la soumission réussie pour l'utilisateur 
- // (ex. "Merci ! Votre réservation a été reçue.")
-
-// Step 4 
-// Visualiser et tester l'interface utilisateur dans les dernières versions de Chrome et de Firefox, ainsi que dans les versions mobile et desktop. Corriger les erreurs d'affichage existantes.
-//Tester toutes les fonctionnalités des boutons et des entrées de formulaire (tester les valeurs correctes et incorrectes)
+function closeModale(){
+   let modale = document.querySelector(".bground")
+   modale.style.display="none";
+}

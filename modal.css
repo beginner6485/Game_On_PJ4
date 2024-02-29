@@ -72,21 +72,6 @@ img {
   display: none;
 }
 
-.modale-fin {
-  display: none;
-  width: 100%;
-  text-align: center;
-  background-color: #fff;
-  padding: inherit;
-  border: dotted;
-  border-width: 3px;
-  position: relative;
-  color: #000;
-  top: 250px;
-
-
-}
-
 
 @media screen and (max-width: 768px) {
   .topnav a {display: none;}
@@ -122,7 +107,7 @@ img {
 } 
 
 main {
-  font-size: 130%;
+  font-size: 100%;
   font-weight: bolder;
   color: black;
   padding-top: 0.5vw;
@@ -136,7 +121,7 @@ main {
 }
 
 .modal-btn {
-  font-size: 145%;
+  font-size: 100%;
   background: #fe142f;
   display: flex;
   margin: auto;
@@ -191,8 +176,7 @@ main {
 
 .content {
   margin: 5% auto;
-  width: 100%;
-  max-width: 500px;
+  width: 50%;
   animation-name: modalopen;
   animation-duration: var(--modal-duration);
   background: #232323;
@@ -201,6 +185,30 @@ main {
   position: relative;
   color: #fff;
   padding-top: 10px;
+}
+
+
+.modale-fin {
+  padding: inherit;
+  color: white;
+  display: none;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.button-close{
+  background: #fe142f;
+  border-radius: 7px;
+  font-size: 1rem;
+  padding: 12px 82px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+  position:absolute;
+  margin-top: 700px;
 }
 
 .modal-body {
@@ -508,6 +516,7 @@ footer {
     background: #fff;
     color: #000;
     padding: 20px;
+    width: 100%;
   }
   .hero-content::after {
     content: unset;
@@ -520,7 +529,7 @@ footer {
     white-space: normal;
   }
   .hero-text {
-    width: unset;
+    width: 100%;
     font-size: 1.5rem;
   }
   .hero-img img {
