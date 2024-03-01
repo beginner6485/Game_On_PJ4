@@ -14,7 +14,6 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-image: url("background.png");
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
@@ -72,40 +71,6 @@ img {
   display: none;
 }
 
-
-@media screen and (max-width: 768px) {
-  .topnav a {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-}
-
-
-
- @media screen and (max-width: 540px) {
-  .topnav a {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-    margin-top: -15px;
-  }
-} 
-
 main {
   font-size: 100%;
   font-weight: bolder;
@@ -116,7 +81,6 @@ main {
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
-
 
 }
 
@@ -207,8 +171,8 @@ main {
   color: #fff;
   cursor: pointer;
   border: 0;
-  position:absolute;
-  margin-top: 700px;
+  margin-top: 600px;
+  position: absolute;
 }
 
 .modal-body {
@@ -507,7 +471,32 @@ footer {
   margin: 0 20px;
 }
 
-@media screen and (max-width: 800px) {
+.modale-fin{
+  height: 700px;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .topnav a {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
   .hero-section {
     display: block;
     box-shadow: unset;
@@ -515,8 +504,9 @@ footer {
   .hero-content {
     background: #fff;
     color: #000;
-    padding: 20px;
+    padding: 0;
     width: 100%;
+    min-width: 0;
   }
   .hero-content::after {
     content: unset;
@@ -525,12 +515,13 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
+    font-size: 1cm;
     white-space: normal;
   }
   .hero-text {
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 15px;
+    margin-top: 15px;
   }
   .hero-img img {
     border-radius: 10px;
@@ -545,7 +536,25 @@ footer {
     margin-top: 50px;
     text-align: center;
   }
+
+  .fa{
+    color: red;
+  }
+
+  .content{
+    width: 100%;
+    margin-top: 70px;
+  }
+  .button-close{
+    margin-top: 0px;
+    margin-top: 500px;
+  }
+
+  .modale-fin{
+    height: 590px;
+  }
 }
+ 
 
 @keyframes modalopen {
   from {
