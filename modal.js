@@ -56,6 +56,8 @@ if(inputControl.value.length < 2) {
   inputControl.style.border= "solid red"; 
   message.style.display="block";
   message2.style.display="block";
+  message.style.color="red";
+  message2.style.color="red";
   return false;
 }else{
   inputControl.style.border= "white"; 
@@ -77,7 +79,7 @@ modalLast.addEventListener("keyup", e => {
 
 // on vérifie que l'email est complet
 function emailTest (){
-let emailRegex = new RegExp("[a-z0-9]+@[a-z]+\.[a-z]{2,3}");
+let emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 if (emailRegex.test(modalEmail.value)) {
   message3.style.display="none";
   modalEmail.style.border= "none"; 
@@ -85,6 +87,7 @@ if (emailRegex.test(modalEmail.value)) {
 }else{
   message3.style.display="block";
   modalEmail.style.border= "solid red"; 
+  message3.style.color= "red"
   return false;
  }
 } //on vérifie que la value de emailInput correspond bien à la regex
@@ -101,6 +104,7 @@ if (quantity.value >= 0) {
 }else{
   quantity.style.border= "solid red"; 
   quantity.style.background="red";
+  quantity.style.color= "red"
   return false;
  }
 }
@@ -111,16 +115,19 @@ let checkbox = document.querySelector(".checkBox:checked");
 
 
 function dateDeNaissance(e) {
- let date = new Date() ; // date actuelle
+ let today = new Date() ; // date actuelle
  let birthDate = new Date(modalBirth.value)
 
- if (date >= birthDate){
+ let adulTage = new Date("2006-01-01");
+
+ if (birthDate <= today && birthDate <= adulTage){
   message4.style.display="none";
   modalBirth.style.border= "none"; 
   return true;
  }else{
   message4.style.display="block";
-  modalBirth.style.border= "solid red"; 
+  modalBirth.style.border= "solid red";
+  message4.style.color= "red";
   return false;
   }
  }
@@ -131,12 +138,13 @@ modalBirth.addEventListener("input", e => {
 
 function quantityCheck(){
   if(quantity.value && quantity.value > 0){
-    message5.style.display = "none"
+    message5.style.display = "none";
     quantity.style.border ="none"
     return true
   }else{
-    message5.style.display = "block"
-    quantity.style.border ="solid red"
+    message5.style.display = "block";
+    quantity.style.border ="solid red";
+    message5.style.color="red";
     return false
   }
 }
@@ -149,6 +157,7 @@ function radio (e) {
    
   }else{
   message6.style.display= "block"
+  message6.style.color="red"
   return false;
 }
 }
@@ -160,6 +169,7 @@ function conditionRespect(){
     return true
   }else{
     message7.style.display = "block"
+    message7.style.color="red"
     return false
   }
 }
@@ -193,7 +203,9 @@ if (appel()== true){
   return false;
  }
 }
+
 function logFormDataRealTime() {
+  if (appel()){ // Vérifie si appel() retourne true
   const firstName = modalFirst.value;
   const lastName = modalLast.value;
   const email = modalEmail.value;
@@ -208,6 +220,7 @@ function logFormDataRealTime() {
   console.log("Birthdate:", birthdate);
   console.log("Quantity:", quantityValue);
   console.log("Radio Checked:", radioChecked ? radioChecked.value : "None");
+  }
 }
 
 // Ajouter des écouteurs d'événements pour chaque champ de formulaire
