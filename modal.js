@@ -65,11 +65,12 @@ if(inputControl.value.length < 2) {
   return true;
  }
 }
-
+//vérifie que l'input se rempli
 modalFirst.addEventListener("keyup",e => {
   textCheck(modalFirst);
 }); 
 
+//vérifie que l'input se rempli
 modalLast.addEventListener("keyup", e => {
   textCheck(modalLast);
 });
